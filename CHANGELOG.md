@@ -1,5 +1,16 @@
 # 🔀 &nbsp; Changelog
 
+## 1.1.1 (2024-03-11)
+ 
+
+### Bug Fixes
+  * *CARD*: Fixed issue where `onTokenizationComplete` failed to trigger when `onCreatePayment` was utilized. Now, events will consistently fire regardless of the use of `onCreatePayment`. Please note the following:
+
+    1. If `onCreatePayment` is used, the SDK will promptly advance to the subsequent step in the process by invoking `onCreatePayment` after `onTokenizationComplete`, subsequently initiating a 3DS redirect.
+    2. `onCreatePayment(data)` provides you with the cardId required for payment within the data parameter.
+
+
+
 ## 1.1.0 (2024-02-29)
 
 ### Features & Improvements
