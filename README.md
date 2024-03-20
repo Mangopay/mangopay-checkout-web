@@ -1,15 +1,17 @@
 <div align="center">
 
 <h1>
-<img src="https://github.com/Mangopay/mangopay-checkout-web/blob/main/images/mangopay-logo.png?raw=true" height="24px"> Mangopay Checkout Web SDK</h1>
+    <img alt="mangopay-logo" src="https://github.com/Mangopay/mangopay-checkout-web/blob/main/images/mangopay-logo.png?raw=true" height="24px" />
+    Mangopay Checkout Web SDK
+</h1>
 
 <h3>Official <a href="https://mangopay.com">Mangopay</a> Checkout Web SDK</h3>
 
 <p>
-<img src="https://img.shields.io/npm/v/@mangopay/checkout-sdk" />
+    <img alt="checkout-sdk" src="https://img.shields.io/npm/v/@mangopay/checkout-sdk" />
 </p>
 
-<img src="https://blog.mangopay.com/hubfs/Desktop%20-%201032x480@2x-3.png" width="50%"/>
+<img alt="mangopay-blog" src="https://blog.mangopay.com/hubfs/Desktop%20-%201032x480@2x-3.png" width="50%" />
 
 </div>
 

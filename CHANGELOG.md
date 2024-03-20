@@ -16,7 +16,7 @@
 ### Features & Improvements
  * Changed package name: The package name has been changed from `sdk-loader` to `checkout-sdk`.
 
-     * Subseuqently: `MangopaySdkLoader` has been renamed to `CheckoutSdk`
+     * Subseuqently: `MangopaySdkLoader` has been renamed to `MangopayCheckout`
   
  * PayPal payment method support: Added the ability for customers to pay via PayPal in addition to credit/debit cards. PayPal is now available as a payment option during the checkout flow.
     
