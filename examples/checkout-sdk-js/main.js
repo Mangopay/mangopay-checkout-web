@@ -5,7 +5,6 @@ import { paypalOptions } from './payment-methods/paypal';
 import { Toast } from './utils/toast';
 
 const { VITE_PROFILING_MERCHANT_ID, VITE_CLIENT_ID } = import.meta.env;
-console.log('VITE_PROFILING_MERCHANT_ID', VITE_PROFILING_MERCHANT_ID);
 
 const options = {
   clientId: VITE_CLIENT_ID,
