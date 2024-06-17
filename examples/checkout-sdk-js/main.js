@@ -3,6 +3,7 @@ import { CheckoutSdk } from '@mangopay/checkout-sdk';
 import { cardOptions } from './payment-methods/card';
 import { paypalOptions } from './payment-methods/paypal';
 import { Toast } from './utils/toast';
+import { googlePayOptions } from './payment-methods/googlepay.js';
 
 const { VITE_PROFILING_MERCHANT_ID, VITE_CLIENT_ID } = import.meta.env;
 
@@ -14,7 +15,7 @@ const options = {
     value: '20000',
     currency: 'EUR',
   },
-  paymentMethods: [cardOptions, paypalOptions],
+  paymentMethods: [cardOptions, paypalOptions, googlePayOptions],
 };
 
 window.addEventListener('load', async () => {
