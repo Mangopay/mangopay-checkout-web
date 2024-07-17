@@ -18,6 +18,13 @@
 <br/>
 <br/>
 
+# 🚀 Deployed Demo
+
+Check out the [deployed demo](https://mangopay-checkout-demo.netlify.app/) to see the SDK in action.
+
+<br/>
+<br/>
+
 # ✨ Features of the Checkout SDK
 
 🔒 &nbsp; Maintain PCI Compliance without redirecting customers.
