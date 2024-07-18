@@ -1,4 +1,4 @@
-const { REACT_APP_BACKEND_APPLE_API } = process.env;
+const { REACT_APP_BACKEND_APPLE_API, REACT_APP_APPLE_MERCHANT_ID } = process.env;
 
 const validateApplePayMerchant = async (validationURL) => {
   try {
@@ -7,7 +7,7 @@ const validateApplePayMerchant = async (validationURL) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         validationURL,
-        merchantIdentifier: 'merchant.com.example.mystore',
+        merchantIdentifier: REACT_APP_APPLE_MERCHANT_ID,
         displayName: 'MyStore',
         initiative: 'web',
         initiativeContext: 'mystore.example.com',
@@ -40,7 +40,7 @@ export const applePayOptions = {
         type: 'final',
         amount: '20.00',
       },
-      merchantIdentifier: 'merchant.mangopay.com.payline.58937646344908',
+      merchantIdentifier: REACT_APP_APPLE_MERCHANT_ID,
       merchantName: 'Mangopay',
       onValidateMerchant: validateApplePayMerchant,
       requiredBillingContactFields: ['email'],
