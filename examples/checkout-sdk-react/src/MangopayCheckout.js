@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import { MangopayCheckout as MangopayCheckoutComponent } from '@mangopay/checkout-sdk-react';
-import { cardOptions } from "./payment-methods/card";
-import { paypalOptions } from "./payment-methods/paypal";
-import { Toast } from "./utils/toast";
+import { cardOptions } from './payment-methods/card';
+import { paypalOptions } from './payment-methods/paypal';
+import { applePayOptions } from './payment-methods/applepay';
+import { googlePayOptions } from './payment-methods/googlepay';
+import { Toast } from './utils/toast';
 
 const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
 
@@ -14,7 +16,7 @@ const options = {
     value: '20000',
     currency: 'EUR',
   },
-  paymentMethods: [cardOptions, paypalOptions],
+  paymentMethods: [cardOptions, paypalOptions, applePayOptions, googlePayOptions],
 };
 
 const MangopayCheckout = () => {
