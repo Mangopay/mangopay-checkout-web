@@ -1,4 +1,4 @@
-const { REACT_APP_BACKEND_APPLE_API, REACT_APP_APPLE_MERCHANT_ID } = process.env;
+const { REACT_APP_BACKEND_APPLE_API, REACT_APP_APPLE_MERCHANT_ID, REACT_APP_BACKEND_API } = process.env;
 
 const validateApplePayMerchant = async (validationURL) => {
   try {
@@ -27,6 +27,27 @@ const validateApplePayMerchant = async (validationURL) => {
   }
 };
 
+const createPayment = async (payload) => {
+  try {
+    const response = await fetch(REACT_APP_BACKEND_API + '/create-apple-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error creating payment:', error);
+
+    throw error;
+  }
+};
+
 export const applePayOptions = {
   type: 'apple_pay',
   options: {
@@ -42,8 +63,9 @@ export const applePayOptions = {
       },
       merchantIdentifier: REACT_APP_APPLE_MERCHANT_ID,
       merchantName: 'Mangopay',
-      onValidateMerchant: validateApplePayMerchant,
       requiredBillingContactFields: ['email'],
+      onValidateMerchant: validateApplePayMerchant,
+      onCreatePayment: createPayment,
     },
   },
 };
