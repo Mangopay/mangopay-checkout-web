@@ -29,7 +29,7 @@ const validateApplePayMerchant = async (validationURL) => {
 
 const createPayment = async (payload) => {
   try {
-    const response = await fetch(REACT_APP_BACKEND_API + '/create-apple-payment', {
+    const response = await fetch(REACT_APP_BACKEND_API + '/create-applepay-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
