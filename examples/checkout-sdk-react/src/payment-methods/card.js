@@ -11,7 +11,7 @@ export const cardOptions = {
 
 const createCardRegistration = async (cardType) => {
   try {
-    const response = await fetch(REACT_APP_BACKEND_API + '/card-registration', {
+    const response = await fetch(REACT_APP_BACKEND_API + '/create-card-registration', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ CardType: cardType }),
