@@ -65,7 +65,7 @@ export const applePayOptions = {
       merchantName: 'Mangopay',
       requiredBillingContactFields: ['email'],
       onValidateMerchant: validateApplePayMerchant,
-      onCreatePayment: createPayment,
     },
+    onCreatePayment: createPayment,
   },
 };
