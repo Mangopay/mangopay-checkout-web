@@ -1,8 +1,8 @@
-const { REACT_APP_BACKEND_APPLE_API, REACT_APP_APPLE_MERCHANT_ID, REACT_APP_BACKEND_API } = process.env;
+const { REACT_APP_APPLE_MERCHANT_ID, REACT_APP_BACKEND_API } = process.env;
 
 const validateApplePayMerchant = async ({ validationURL }) => {
   try {
-    const response = await fetch(REACT_APP_BACKEND_APPLE_API + '/get-apple-pay-session', {
+    const response = await fetch(REACT_APP_BACKEND_API + '/get-apple-pay-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -13,7 +13,7 @@ const options = {
   profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
   environment: 'SANDBOX',
   amount: {
-    value: '20000',
+    value: '2000',
     currency: 'EUR',
   },
   paymentMethods: [cardOptions, paypalOptions, applePayOptions, googlePayOptions],
