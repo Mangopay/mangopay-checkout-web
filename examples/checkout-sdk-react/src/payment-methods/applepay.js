@@ -1,4 +1,4 @@
-const { REACT_APP_APPLE_MERCHANT_ID, REACT_APP_BACKEND_API, REACT_APP_APPLE_GLITCH_API } = process.env;
+const { REACT_APP_APPLE_MERCHANT_ID, REACT_APP_BACKEND_API } = process.env;
 
 const validateApplePayMerchant = async ({ validationURL }) => {
   try {
@@ -29,7 +29,7 @@ const validateApplePayMerchant = async ({ validationURL }) => {
 
 const createPayment = async (payload) => {
   try {
-    const response = await fetch(REACT_APP_APPLE_GLITCH_API + '/create-applepay-payment', {
+    const response = await fetch(REACT_APP_BACKEND_API + '/create-applepay-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
