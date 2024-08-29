@@ -32,7 +32,7 @@ const createPayment = async (payload) => {
     const response = await fetch(REACT_APP_BACKEND_API + '/create-applepay-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: payload,
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
