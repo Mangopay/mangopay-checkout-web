@@ -1,4 +1,4 @@
-const { REACT_APP_BACKEND_API } = process.env;
+const { REACT_APP_BACKEND_API, REACT_APP_SECURE_MODE_RETURN_URL } = process.env;
 
 export const cardOptions = {
   type: 'card',
@@ -32,7 +32,7 @@ const createCardRegistration = async (cardType) => {
 
 const createPayment = async (data) => {
   try {
-    const { Currency, CardId, profilingAttemptReference } = data;
+    const { Currency, CardId, profilingAttemptReference, PreferredCardNetwork } = data;
     const response = await fetch(REACT_APP_BACKEND_API + '/create-card-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -41,6 +41,8 @@ const createPayment = async (data) => {
         profilingAttemptReference,
         currency: Currency,
         amount: '2000',
+        PreferredCardNetwork,
+        SecureModeReturnURL: REACT_APP_SECURE_MODE_RETURN_URL || 'https://checkout.mangopay.com'
       }),
     });
 
