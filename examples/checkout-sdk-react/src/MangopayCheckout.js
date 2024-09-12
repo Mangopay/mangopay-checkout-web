@@ -32,10 +32,17 @@ const MangopayCheckout = () => {
 
   const onPaymentComplete = async (result) => {
     console.log('onPaymentComplete', result);
-    Toast.fire({
-      icon: 'success',
-      title: 'Payment successful',
-    });
+    if (result.Status !== 'SUCCEEDED') {
+      Toast.fire({
+        icon: 'error',
+        title: result.ResultMessage,
+      });
+    } else {
+      Toast.fire({
+        icon: 'success',
+        title: 'Payment successful',
+      });
+    }
   };
 
   const onError = ({ error }) => {
