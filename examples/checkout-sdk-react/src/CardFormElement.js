@@ -1,9 +1,7 @@
-import React, { useRef } from 'react';
-import { MangopayCheckout as MangopayCheckoutComponent } from '@mangopay/checkout-sdk-react';
+import { useRef } from 'react';
+import { CardFormElement as CardFormElementComponent } from '@mangopay/checkout-sdk-react';
+
 import { cardOptions } from './payment-methods/card';
-import { paypalOptions } from './payment-methods/paypal';
-import { applePayOptions } from './payment-methods/applepay';
-import { googlePayOptions } from './payment-methods/googlepay';
 import { Toast } from './utils/toast';
 
 const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
@@ -16,10 +14,10 @@ export const options = {
     value: '2000',
     currency: 'EUR',
   },
-  paymentMethods: [cardOptions, paypalOptions, applePayOptions, googlePayOptions],
+  paymentMethod: cardOptions,
 };
 
-const MangopayCheckout = () => {
+const CardFormElement = () => {
   const sdkRef = useRef(null);
 
   const onTokenizationComplete = async (result) => {
@@ -53,15 +51,30 @@ const MangopayCheckout = () => {
     });
   };
 
+  const handleCompletePayment = () => {
+    if (!sdkRef.current) {
+      throw new Error('Card Form Element is not loaded.');
+    }
+    sdkRef.current.completePayment();
+  };
+
   return (
-    <MangopayCheckoutComponent
-      ref={sdkRef}
-      options={options}
-      onError={onError}
-      onTokenizationComplete={onTokenizationComplete}
-      onPaymentComplete={onPaymentComplete}
-    />
+    <>
+      <form noValidate>
+        <CardFormElementComponent
+          ref={sdkRef}
+          options={options}
+          onError={onError}
+          onTokenizationComplete={onTokenizationComplete}
+          onPaymentComplete={onPaymentComplete}
+        />
+      </form>
+
+      <button onClick={handleCompletePayment} className="button">
+        Pay now
+      </button>
+    </>
   );
 };
 
-export default MangopayCheckout;
+export default CardFormElement;
