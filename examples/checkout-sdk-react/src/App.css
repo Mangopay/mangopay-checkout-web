@@ -3,14 +3,14 @@
 }
 
 .App-content {
-  background-color: #282c34;
+  background-color: #1e1e2f;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #e0e0e0;
 }
 
 .App-content > div {
@@ -21,35 +21,122 @@
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .button {
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
-  border: none;
-  background-color: #61dafb;
-  color: #282c34;
+  border: 2px solid transparent;
+  background-color: #4f5d75;
+  color: white;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .button:hover {
-  background-color: #21a1f1;
+  background-color: #2d3a4b;
+  transform: scale(1.03);
 }
 
 .button.active {
-  background-color: #21a1f1;
-  color: white;
+  background-color: #ffffff;
+  color: #4f5d75;
+  border-color: #5a67d8;
+  font-weight: bold;
+  transform: none;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.5);
 }
 
 .checkout-container {
   width: 100%;
   max-width: 600px;
   padding: 20px;
-  background-color: white;
-  color: #282c34;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   min-height: 573px;
+}
+
+.success-page,
+.error-page {
+  background-color: #1e1e2f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 20px;
+}
+
+.success-page h1,
+.error-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #8d99ae;
+}
+
+.success-page p,
+.error-page p {
+  font-size: 1.25rem;
+  margin-bottom: 25px;
+  color: #a0aec0;
+}
+
+.success-page .button,
+.error-page .button {
+  background-color: #5a67d8;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+  cursor: pointer;
+}
+
+.success-page .button:hover,
+.error-page .button:hover {
+  background-color: #434190;
+  transform: translateY(-3px);
+}
+
+.success-page {
+  background-color: #2b2e4a;
+}
+
+.error-page {
+  background-color: #3f3351;
+}
+
+.success-page h1 {
+  color: #a3be8c;
+}
+
+.error-page h1 {
+  color: #ef8354;
+}
+
+.success-page p,
+.error-page p {
+  color: #a0aec0;
+}
+
+.success-page .button:focus,
+.error-page .button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.5);
 }

@@ -1,8 +1,9 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CardFormElement as CardFormElementComponent } from '@mangopay/checkout-sdk-react';
 
-import { cardOptions } from './payment-methods/card';
-import { Toast } from './utils/toast';
+import { cardOptions } from '../payment-methods/card';
+import { Toast } from '../utils/toast';
 
 const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
 
@@ -18,6 +19,7 @@ export const options = {
 };
 
 const CardFormElement = () => {
+  const navigate = useNavigate();
   const sdkRef = useRef(null);
 
   const onTokenizationComplete = async (result) => {
@@ -31,24 +33,15 @@ const CardFormElement = () => {
   const onPaymentComplete = async (result) => {
     console.log('onPaymentComplete', result);
     if (result.Status !== 'SUCCEEDED') {
-      Toast.fire({
-        icon: 'error',
-        title: result.ResultMessage,
-      });
+      navigate('/error');
     } else {
-      Toast.fire({
-        icon: 'success',
-        title: 'Payment successful',
-      });
+      navigate('/success');
     }
   };
 
   const onError = ({ error }) => {
     console.log('onError', error);
-    Toast.fire({
-      icon: 'error',
-      title: error.ResultMessage,
-    });
+    navigate('/error');
   };
 
   const handleCompletePayment = () => {
