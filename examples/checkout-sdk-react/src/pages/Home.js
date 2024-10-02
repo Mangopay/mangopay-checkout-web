@@ -4,15 +4,9 @@ import CardFormElement from '../components/CardFormElement';
 
 function Home() {
   const [activeComponent, setActiveComponent] = useState('MangopayCheckout');
-  const [showComponent, setShowComponent] = useState(true);
 
-  // Note: This setTimeout workaround is used solely for demonstration purposes in this demo. It ensures the browser has enough time to cleanly replace the iframe and detach event listeners between component switches. In a production environment, you won't need to rely on this solution as the SDK handles these processes efficiently.
   const handleComponentChange = (component) => {
-    setShowComponent(false);
-    setTimeout(() => {
-      setActiveComponent(component);
-      setShowComponent(true);
-    }, 0);
+    setActiveComponent(component);
   };
 
   return (
@@ -34,8 +28,8 @@ function Home() {
         </div>
 
         <div className="checkout-container">
-          {showComponent && activeComponent === 'MangopayCheckout' && <MangopayCheckout />}
-          {showComponent && activeComponent === 'CardFormElement' && <CardFormElement />}
+          {activeComponent === 'MangopayCheckout' && <MangopayCheckout />}
+          {activeComponent === 'CardFormElement' && <CardFormElement />}
         </div>
       </div>
     </div>
