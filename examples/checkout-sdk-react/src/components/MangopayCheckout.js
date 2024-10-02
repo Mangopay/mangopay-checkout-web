@@ -47,11 +47,16 @@ const MangopayCheckout = () => {
     navigate('/error');
   };
 
+  const onCancel = () => {
+    console.log('onCancel');
+  };
+
   return (
     <MangopayCheckoutComponent
       ref={sdkRef}
       options={options}
       onError={onError}
+      onCancel={onCancel}
       onTokenizationComplete={onTokenizationComplete}
       onPaymentComplete={onPaymentComplete}
     />
