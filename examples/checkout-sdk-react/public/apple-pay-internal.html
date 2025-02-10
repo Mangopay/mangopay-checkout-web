@@ -12,6 +12,8 @@
       const ApplePayComponent = () => {
         const [token, setToken] = React.useState(null);
         const [isAvailable, setIsAvailable] = React.useState(false);
+        const [currencyCode, setCurrencyCode] = React.useState('USD');
+        const [amount, setAmount] = React.useState('1.00');
 
         React.useEffect(() => {
           if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
@@ -22,10 +24,10 @@
         const startApplePaySession = () => {
           const paymentRequest = {
             countryCode: 'US',
-            currencyCode: 'USD',
+            currencyCode: currencyCode,
             supportedNetworks: ['visa', 'masterCard', 'amex'],
             merchantCapabilities: ['supports3DS'],
-            total: { label: 'Demo Shop', amount: '1.00' },
+            total: { label: 'Demo Shop', amount: amount },
           };
 
           const session = new ApplePaySession(3, paymentRequest);
@@ -69,7 +71,38 @@
 
         return (
           <div>
-            <h2>Apple Pay Example</h2>
+            <h2>Apple Pay Example with Configurable Options</h2>
+            <div className="config-box">
+              <div className="label">
+                <label htmlFor="currency">Currency</label>
+              </div>
+              <select
+                id="currency"
+                className="form-control"
+                value={currencyCode}
+                onChange={(e) => setCurrencyCode(e.target.value)}
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+
+            <div className="config-box">
+              <div className="label">
+                <label htmlFor="amount">Amount</label>
+              </div>
+              <input
+                type="number"
+                id="amount"
+                className="form-control"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                min="0.01"
+                step="0.01"
+              />
+            </div>
+
             {isAvailable ? (
               <button onClick={startApplePaySession} style={buttonStyle}>
                 Pay with Apple Pay
@@ -77,6 +110,7 @@
             ) : (
               <p>Apple Pay is not available on this device/browser.</p>
             )}
+
             {token && (
               <div className="result-block">
                 <p>Payment Token:</p>
@@ -106,6 +140,20 @@
     </script>
   </body>
   <style>
+    .config-box {
+      margin-bottom: 12px;
+    }
+    .label {
+      margin-bottom: 4px;
+    }
+    .form-control {
+      width: 100px;
+      height: 35px;
+      border-radius: 4px;
+      padding: 0 5px;
+      border: 1px solid grey;
+      outline: none;
+    }
     .result-block {
       margin-top: 20px;
       padding: 10px;
