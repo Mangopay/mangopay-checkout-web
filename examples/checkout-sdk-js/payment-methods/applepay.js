@@ -10,7 +10,7 @@ const validateApplePayMerchant = async ({ validationURL }) => {
         merchantIdentifier: VITE_APPLE_MERCHANT_ID,
         displayName: 'MyStore',
         initiative: 'web',
-        initiativeContext: 'mangopay-checkout-demo.netlify.app',
+        initiativeContext: 'checkout-demo-mangopay.netlify.app',
       }),
     });
 
