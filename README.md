@@ -20,7 +20,7 @@
 
 # 🚀 Deployed Demo
 
-Check out the [deployed demo](https://mangopay-checkout-demo.netlify.app/) to see the SDK in action.
+Check out the [deployed demo](https://checkout-demo-mangopay.netlify.app) to see the SDK in action.
 
 <br/>
 <br/>
