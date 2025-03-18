@@ -1,26 +1,35 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CardFormElement as CardFormElementComponent } from '@mangopay/checkout-sdk-react';
 
-import { cardOptions } from '../payment-methods/card';
+import { cardOptions as baseCardOptions } from '../payment-methods/card';
 import { Toast } from '../utils/toast';
 
 const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
 
-export const options = {
-  clientId: REACT_APP_CLIENT_ID,
-  profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
-  environment: 'SANDBOX',
-  amount: {
-    value: '2000',
-    currency: 'EUR',
-  },
-  paymentMethod: cardOptions,
-};
-
-const CardFormElement = () => {
+const CardFormElement = ({ savedCards }) => {
   const navigate = useNavigate();
   const sdkRef = useRef(null);
+
+  const cardFormOptions = useMemo(
+    () => ({
+      clientId: REACT_APP_CLIENT_ID,
+      profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
+      environment: 'SANDBOX',
+      amount: {
+        value: '2000',
+        currency: 'EUR',
+      },
+      paymentMethod: {
+        type: 'card',
+        options: {
+          ...baseCardOptions,
+          savedCards,
+        },
+      },
+    }),
+    [savedCards]
+  );
 
   const onTokenizationComplete = async (result) => {
     console.log('onTokenizationComplete', result);
@@ -40,7 +49,7 @@ const CardFormElement = () => {
   };
 
   const onError = ({ error }) => {
-    console.log('onError', error);
+    console.error('onError', error);
     navigate('/error');
   };
 
@@ -56,7 +65,7 @@ const CardFormElement = () => {
       <form noValidate>
         <CardFormElementComponent
           ref={sdkRef}
-          options={options}
+          options={cardFormOptions}
           onError={onError}
           onTokenizationComplete={onTokenizationComplete}
           onPaymentComplete={onPaymentComplete}

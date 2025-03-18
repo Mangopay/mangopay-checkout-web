@@ -1,25 +1,6 @@
-const { REACT_APP_BACKEND_API, REACT_APP_CLIENT_ID } = process.env;
+import { createGooglePayPayIn } from '../api/create-google-pay-pay-in';
 
-const createPayment = async (payload) => {
-  try {
-    const response = await fetch(REACT_APP_BACKEND_API + '/create-googlepay-payment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error creating payment:', error);
-
-    throw error;
-  }
-};
+const { REACT_APP_CLIENT_ID } = process.env;
 
 export const googlePayOptions = {
   type: 'google_pay',
@@ -51,6 +32,6 @@ export const googlePayOptions = {
     paymentData: {
       emailRequired: true,
     },
-    onCreatePayment: createPayment,
+    onCreatePayment: createGooglePayPayIn,
   },
 };

@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MangopayCheckout as MangopayCheckoutComponent } from '@mangopay/checkout-sdk-react';
-import { cardOptions } from '../payment-methods/card';
+import { cardOptions as baseCardOptions } from '../payment-methods/card';
 import { paypalOptions } from '../payment-methods/paypal';
 import { applePayOptions } from '../payment-methods/applepay';
 import { googlePayOptions } from '../payment-methods/googlepay';
@@ -10,20 +10,34 @@ import { Toast } from '../utils/toast';
 
 const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
 
-export const options = {
-  clientId: REACT_APP_CLIENT_ID,
-  profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
-  environment: 'SANDBOX',
-  amount: {
-    value: '2000',
-    currency: 'EUR',
-  },
-  paymentMethods: [cardOptions, paypalOptions, applePayOptions, googlePayOptions],
-};
-
-const MangopayCheckout = () => {
+const MangopayCheckout = ({ savedCards }) => {
   const navigate = useNavigate();
   const sdkRef = useRef(null);
+
+  const checkoutOptions = useMemo(
+    () => ({
+      clientId: REACT_APP_CLIENT_ID,
+      profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
+      environment: 'SANDBOX',
+      amount: {
+        value: '2000',
+        currency: 'EUR',
+      },
+      paymentMethods: [
+        {
+          type: 'card',
+          options: {
+            ...baseCardOptions,
+            savedCards,
+          },
+        },
+        paypalOptions,
+        applePayOptions,
+        googlePayOptions,
+      ],
+    }),
+    [savedCards]
+  );
 
   const onTokenizationComplete = async (result) => {
     console.log('onTokenizationComplete', result);
@@ -43,7 +57,7 @@ const MangopayCheckout = () => {
   };
 
   const onError = ({ error }) => {
-    console.log('onError', error);
+    console.error('onError', error);
     navigate('/error');
   };
 
@@ -54,7 +68,7 @@ const MangopayCheckout = () => {
   return (
     <MangopayCheckoutComponent
       ref={sdkRef}
-      options={options}
+      options={checkoutOptions}
       onError={onError}
       onCancel={onCancel}
       onTokenizationComplete={onTokenizationComplete}
