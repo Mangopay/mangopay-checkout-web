@@ -51,7 +51,7 @@ function Home() {
 
         <div className="checkout-container">
           {loading ? (
-            <div class="spinner"></div>
+            <div className="spinner"></div>
           ) : error ? (
             <p className="error">{error}</p>
           ) : (
