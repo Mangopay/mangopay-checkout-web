@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import MangopayCheckout from '../components/MangopayCheckout';
 import CardFormElement from '../components/CardFormElement';
-import { getSavedCards } from '../api/get-saved-card';
+import PaymentExamples from '../components/PaymentExamples';
+import mockSavedCards from '../mock-saved-cards.json';
+// import { getSavedCards } from '../api/get-saved-card';
 
 function Home() {
   const [activeComponent, setActiveComponent] = useState('MangopayCheckout');
@@ -18,8 +20,10 @@ function Home() {
       setLoading(true);
       setError(null);
       try {
-        const cards = await getSavedCards();
-        setSavedCards(cards);
+        // const cards = await getSavedCards();
+        // setSavedCards(cards);
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        setSavedCards(mockSavedCards);
       } catch (err) {
         setError('Failed to fetch saved cards.');
         console.error(err);
@@ -48,7 +52,7 @@ function Home() {
             Card Form Element
           </button>
         </div>
-
+        <PaymentExamples />
         <div className="checkout-container">
           {loading ? (
             <div className="spinner"></div>
