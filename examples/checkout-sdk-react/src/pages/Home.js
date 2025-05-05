@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import MangopayCheckout from '../components/MangopayCheckout';
 import CardFormElement from '../components/CardFormElement';
+import PaymentExamples from '../components/PaymentExamples';
 import { getSavedCards } from '../api/get-saved-card';
 
 function Home() {
@@ -48,7 +49,7 @@ function Home() {
             Card Form Element
           </button>
         </div>
-
+        <PaymentExamples />
         <div className="checkout-container">
           {loading ? (
             <div className="spinner"></div>
