@@ -2,13 +2,13 @@ const { REACT_APP_BACKEND_API } = process.env;
 
 export const createCardDirectPayIn = async (data) => {
   try {
-    const { Currency, CardId, profilingAttemptReference, SaveCard } = data;
+    const { Currency, CardId, ProfilingAttemptReference, SaveCard } = data;
     const response = await fetch(REACT_APP_BACKEND_API + '/create-card-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         cardId: CardId,
-        profilingAttemptReference,
+        ProfilingAttemptReference,
         currency: Currency,
         amount: '2000',
         SaveCard,
