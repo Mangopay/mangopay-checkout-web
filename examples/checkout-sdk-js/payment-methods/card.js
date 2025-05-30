@@ -35,13 +35,13 @@ const createCardRegistration = async (cardType) => {
 
 const createPayment = async (data) => {
   try {
-    const { Currency, CardId, profilingAttemptReference } = data;
+    const { Currency, CardId, ProfilingAttemptReference } = data;
     const response = await fetch(VITE_BACKEND_API + '/create-card-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         cardId: CardId,
-        profilingAttemptReference,
+        ProfilingAttemptReference,
         currency: Currency,
         amount: '2000',
       }),
