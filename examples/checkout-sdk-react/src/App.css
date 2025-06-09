@@ -2,40 +2,247 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-content {
-  background-color: #282c34;
+  background-color: #1e1e2f;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: #e0e0e0;
+}
+
+.App-content > div {
+  width: 400px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  background-color: #4f5d75;
   color: white;
-  > div {
-    width: 400px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.button:hover {
+  background-color: #2d3a4b;
+  transform: scale(1.03);
+}
+
+.button.active {
+  background-color: #ffffff;
+  color: #4f5d75;
+  border-color: #5a67d8;
+  font-weight: bold;
+  transform: none;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.5);
+}
+
+.checkout-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  min-height: 573px;
+
+  & > div:not(.spinner),
+  form {
+    width: 100%;
   }
 }
 
-.App-link {
-  color: #61dafb;
+.success-page,
+.error-page {
+  background-color: #1e1e2f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.success-page h1,
+.error-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #8d99ae;
+}
+
+.success-page p,
+.error-page p {
+  font-size: 1.25rem;
+  margin-bottom: 25px;
+  color: #a0aec0;
+}
+
+.success-page .button,
+.error-page .button {
+  background-color: #5a67d8;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+  cursor: pointer;
+}
+
+.success-page .button:hover,
+.error-page .button:hover {
+  background-color: #434190;
+  transform: translateY(-3px);
+}
+
+.success-page {
+  background-color: #2b2e4a;
+}
+
+.error-page {
+  background-color: #3f3351;
+}
+
+.success-page h1 {
+  color: #a3be8c;
+}
+
+.error-page h1 {
+  color: #ef8354;
+}
+
+.success-page p,
+.error-page p {
+  color: #a0aec0;
+}
+
+.success-page .button:focus,
+.error-page .button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.5);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 6.4px solid;
+  border-color: #dbdcef;
+  border-right-color: #899ab7;
+  animation: spinner-d3wgkg 1s infinite linear;
+}
+
+@keyframes spinner-d3wgkg {
   to {
-    transform: rotate(360deg);
+    transform: rotate(1turn);
   }
+}
+
+.payment-examples {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #2b2e4a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  color: #e0e0e0;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.examples-content {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #d1d1e9;
+}
+
+.example-item {
+  margin-bottom: 16px;
+}
+
+.example-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #a3bffa;
+}
+
+.example-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: nowrap;
+}
+
+.example-key {
+  min-width: 80px;
+  font-weight: 500;
+  color: #c3c7d1;
+  flex-shrink: 0;
+}
+
+.example-code {
+  flex: 1;
+  background: #1e1e2f;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #ffffff;
+  border: 1px solid #3b3e5e;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.copy-btn {
+  font-size: 13px;
+  padding: 6px 12px;
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background-color: #434190;
+  transform: scale(1.05);
+}
+
+.copy-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.5);
 }

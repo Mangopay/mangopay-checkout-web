@@ -10,27 +10,52 @@ export const cardOptions = {
 };
 
 const createCardRegistration = async (cardType) => {
-  const response = await fetch(VITE_BACKEND_API + '/create-card-registration', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      CardType: cardType,
-    }),
-  });
-  return response.json();
+  try {
+    const response = await fetch(
+      VITE_BACKEND_API + '/create-card-registration',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ CardType: cardType }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error creating card registration:', error);
+
+    throw error;
+  }
 };
 
 const createPayment = async (data) => {
-  const { Currency, CardId, profilingAttemptReference } = data;
-  const response = await fetch(VITE_BACKEND_API + '/create-card-direct-payin', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      cardId: CardId,
-      profilingAttemptReference,
-      currency: Currency,
-      amount: '2000',
-    }),
-  });
-  return response.json();
+  try {
+    const { Currency, CardId, ProfilingAttemptReference } = data;
+    const response = await fetch(VITE_BACKEND_API + '/create-card-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cardId: CardId,
+        ProfilingAttemptReference,
+        currency: Currency,
+        amount: '2000',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const paymentData = await response.json();
+    return paymentData;
+  } catch (error) {
+    console.error('Error creating payment:', error);
+
+    throw error;
+  }
 };

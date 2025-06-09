@@ -1,0 +1,147 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body style="width: 100%">
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@google-pay/button-react@3.0.10/dist/index.umd.min.js"></script>
+    <script src="https://unpkg.com/react-copy-to-clipboard/build/react-copy-to-clipboard.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const GooglePay = () => {
+        const [environment, setEnvironment] = React.useState('TEST');
+        const [allowedAuthMethods, setAllowedAuthMethods] = React.useState([]);
+        const [tempMerchantId, setTempMerchantId] = React.useState('test');
+        const [merchantId, setMerchantId] = React.useState('test');
+        const [token, setToken] = React.useState(null);
+        const handleEnvChange = ({ target }) => setEnvironment(target.value);
+        const handleAuthMethodsChange = (target, method) => {
+          setAllowedAuthMethods((prevState) => {
+            return target.checked ? [...prevState, method] : [...prevState.filter((item) => item !== method)];
+          });
+        };
+        const handleTempMerchantIdChange = ({ target }) => setTempMerchantId(target.value);
+        const handleMerchantIdChange = () => setMerchantId(tempMerchantId);
+
+        return (
+          <>
+            <div className="config-box">
+              <div className="label">
+                <label htmlFor="merchantId">Gateway Merchant Id</label>
+              </div>
+              <input
+                className="form-control"
+                value={tempMerchantId}
+                onChange={handleTempMerchantIdChange}
+                onBlur={handleMerchantIdChange}
+              />
+            </div>
+            <div className="config-box">
+              <div className="label">
+                <label htmlFor="env">Environment</label>
+              </div>
+              <select id="env" className="form-control" name="env" value={environment} onChange={handleEnvChange}>
+                <option value="TEST">Test</option>
+                <option value="PRODUCTION">Production</option>
+              </select>
+            </div>
+            <div className="config-box">
+              <input
+                id="pan_only"
+                name="pan_only"
+                type="checkbox"
+                onChange={(event) => handleAuthMethodsChange(event.target, 'PAN_ONLY')}
+              />
+              <label htmlFor="pan_only">PAN_ONLY</label>
+            </div>
+            <div className="config-box">
+              <input
+                id="cryptogram_3ds"
+                name="cryptogram_3ds"
+                type="checkbox"
+                onChange={(event) => handleAuthMethodsChange(event.target, 'CRYPTOGRAM_3DS')}
+              />
+              <label htmlFor="cryptogram_3ds">CRYPTOGRAM_3DS</label>
+            </div>
+
+            <GooglePayButton
+              environment={environment}
+              paymentRequest={{
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                allowedPaymentMethods: [
+                  {
+                    type: 'CARD',
+                    parameters: {
+                      allowedAuthMethods: allowedAuthMethods,
+                      allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA'],
+                    },
+                    tokenizationSpecification: {
+                      type: 'PAYMENT_GATEWAY',
+                      parameters: {
+                        gateway: 'whenthen',
+                        gatewayMerchantId: merchantId, //'BCR2DN6TWP43XTQD',
+                      },
+                    },
+                  },
+                ],
+                merchantInfo: {
+                  merchantId: merchantId, //'BCR2DN6TWP43XTQD',
+                  merchantName: 'WhenThen Demo Shop',
+                },
+                transactionInfo: {
+                  totalPriceStatus: 'FINAL',
+                  totalPriceLabel: 'Total',
+                  totalPrice: '1.00',
+                  currencyCode: 'USD',
+                  countryCode: 'US',
+                },
+              }}
+              onLoadPaymentData={(data) => {
+                setToken(JSON.stringify(data?.paymentMethodData?.tokenizationData?.token));
+              }}
+            />
+            <div className="result-block">
+              {token ? (
+                <CopyToClipboard text={token}>
+                  <button>Copy</button>
+                </CopyToClipboard>
+              ) : null}
+              <div id="google-token-result">{token ?? 'RESULT HERE'}</div>
+            </div>
+          </>
+        );
+      };
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<GooglePay />);
+    </script>
+  </body>
+  <style>
+    .config-box {
+      margin-bottom: 8px;
+    }
+    .label {
+      margin-bottom: 4px;
+    }
+    .form-control {
+      width: 134px;
+      height: 40px;
+      border-radius: 5px;
+      outline: none;
+      padding: 0 5px;
+      background-color: white;
+      border: 1px solid grey;
+    }
+    .result-block {
+      margin-top: 4px;
+    }
+    #google-token-result {
+      margin-top: 6px;
+    }
+  </style>
+</html>
