@@ -12,6 +12,7 @@ export const createCardDirectPayIn = async (data) => {
         currency: Currency,
         amount: '2000',
         SaveCard,
+        SecureModeReturnURL: REACT_APP_SECURE_MODE_RETURN_URL || 'https://checkout.sandbox.mangopay.com/'
       }),
     });
 

@@ -19,6 +19,7 @@ const MangopayCheckout = ({ savedCards }) => {
       clientId: REACT_APP_CLIENT_ID,
       profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
       environment: 'SANDBOX',
+      locale: 'pt',
       amount: {
         value: '2000',
         currency: 'EUR',
