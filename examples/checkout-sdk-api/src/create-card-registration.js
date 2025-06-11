@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 
 const { CLIENT_ID, MANGOPAY_API, USER_ID } = process.env;
 if (!CLIENT_ID || !MANGOPAY_API || !USER_ID) {
@@ -7,7 +7,7 @@ if (!CLIENT_ID || !MANGOPAY_API || !USER_ID) {
   );
 }
 
-export default async function createCardRegistration(cardType) {
+export async function createCardRegistration(cardType) {
   console.log('Requesting card registration for type:', cardType);
   const { access_token } = await createAccessToken();
 

@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 import {
   ADDRESS,
   SECURE_MODE_RETURN_URL as DefaultSecureModeReturnURL,
@@ -11,7 +11,7 @@ if (!CLIENT_ID || !MANGOPAY_API || !USER_ID || !WALLET_ID) {
   );
 }
 
-export default async function createPayPalPayin(secureModeReturnURL) {
+export async function createPayPalPayin(secureModeReturnURL) {
   try {
     const { access_token } = await createAccessToken();
 

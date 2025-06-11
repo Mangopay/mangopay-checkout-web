@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 import {
   BROWSER_INFO,
   ADDRESS,
@@ -12,7 +12,7 @@ if (!CLIENT_ID || !MANGOPAY_API || !USER_ID || !WALLET_ID) {
   );
 }
 
-export default async function createCardDirectPayin(
+export async function createCardPayIn(
   cardId,
   secureModeReturnURL,
   preferredCardNetwork,

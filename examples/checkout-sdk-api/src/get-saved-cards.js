@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 
 const { CLIENT_ID, MANGOPAY_API, USER_ID } = process.env;
 if (!CLIENT_ID || !MANGOPAY_API || !USER_ID) {
@@ -7,7 +7,7 @@ if (!CLIENT_ID || !MANGOPAY_API || !USER_ID) {
   );
 }
 
-export default async function getSavedCards() {
+export async function getSavedCards() {
   const { access_token } = await createAccessToken();
 
   const url = `${MANGOPAY_API}/v2.01/${CLIENT_ID}/users/${USER_ID}/cards?Active=true`;

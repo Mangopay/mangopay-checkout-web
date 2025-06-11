@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 import { BROWSER_INFO, ADDRESS } from './consts';
 
 const { CLIENT_ID, MANGOPAY_API, USER_ID, WALLET_ID } = process.env;
@@ -8,7 +8,7 @@ if (!CLIENT_ID || !MANGOPAY_API || !USER_ID || !WALLET_ID) {
   );
 }
 
-export default async function createApplePayPayIn(paymentData) {
+export async function createApplePayPayIn(paymentData) {
   console.log('PaymentData received:', paymentData);
 
   const { access_token } = await createAccessToken();

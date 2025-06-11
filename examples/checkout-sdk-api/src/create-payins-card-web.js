@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 import { SECURE_MODE_RETURN_URL } from './consts';
 
 const { CLIENT_ID, USER_ID, WALLET_ID, MANGOPAY_API } = process.env;
@@ -8,7 +8,7 @@ if (!CLIENT_ID || !USER_ID || !WALLET_ID || !MANGOPAY_API) {
   );
 }
 
-export default async function createPayinsCardWeb(debitedFunds) {
+export async function createPayinsCardWeb(debitedFunds) {
   const { access_token } = await createAccessToken();
 
   const payload = {

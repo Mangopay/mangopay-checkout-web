@@ -5,7 +5,7 @@ if (!CLIENT_ID || !API_KEY || !MANGOPAY_API) {
   );
 }
 
-export default async function createAccessToken() {
+export async function createAccessToken() {
   const url = `${MANGOPAY_API}/v2.01/oauth/token`;
   const body = new URLSearchParams({ grant_type: 'client_credentials' });
 

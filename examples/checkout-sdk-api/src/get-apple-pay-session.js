@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import https from 'https';
 
-export default async function getApplePaySession(params) {
+export async function getApplePaySession(params) {
   const { validationURL, initiativeContext, merchantIdentifier } = params;
 
   const certPath =

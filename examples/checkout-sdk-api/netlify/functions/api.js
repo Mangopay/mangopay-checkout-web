@@ -2,17 +2,17 @@ import Fastify from 'fastify';
 import awsLambdaFastify from '@fastify/aws-lambda';
 import fastifyCors from '@fastify/cors';
 
-import createCardRegistration from '../../src/create-card-registration.js';
-import createCardPayIn from '../../src/create-card-direct-payin.js';
-import createPayPalPayIn from '../../src/create-paypal-payin.js';
-import createGooglePayPayIn from '../../src/create-googlepay-payin.js';
-import getApplePaySession from '../../src/get-apple-pay-session.js';
-import createApplePayPayIn from '../../src/create-applepay-payin.js';
-import getSavedCards from '../../src/get-saved-cards.js';
-import deactivateCard from '../../src/deactivate-card.js';
-import createTestPayin from '../../src/create-payins-card-web.js';
-import createRecurringRegistration from '../../src/create-recurring-registration.js';
-import confirmRecurringCIT from '../../src/confirm-recurring-cit.js';
+import { createCardRegistration } from '../../src/create-card-registration.js';
+import { createCardPayIn } from '../../src/create-card-direct-payin.js';
+import { createPayPalPayin } from '../../src/create-paypal-payin.js';
+import { createGooglePayPayIn } from '../../src/create-googlepay-payin.js';
+import { getApplePaySession } from '../../src/get-apple-pay-session.js';
+import { createApplePayPayIn } from '../../src/create-applepay-payin.js';
+import { getSavedCards } from '../../src/get-saved-cards.js';
+import { deactivateCard } from '../../src/deactivate-card.js';
+import { createPayinsCardWeb } from '../../src/create-payins-card-web.js';
+import { createRecurringRegistration } from '../../src/create-recurring-registration.js';
+import { confirmRecurringCIT } from '../../src/confirm-recurring-cit.js';
 
 const app = Fastify({ logger: false });
 
@@ -88,7 +88,7 @@ app.register(
 
     api.post('/create-payins-card-web', async (req, reply) => {
       try {
-        const redirectUrl = await createTestPayin(req.body);
+        const redirectUrl = await createPayinsCardWeb(req.body);
         reply.send({ redirectUrl });
       } catch (err) {
         reply.code(500).send({ error: true, message: err.message });

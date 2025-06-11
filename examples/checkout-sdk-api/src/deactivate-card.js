@@ -1,4 +1,4 @@
-import createAccessToken from './create-access-token';
+import { createAccessToken } from './create-access-token';
 
 const { CLIENT_ID, MANGOPAY_API } = process.env;
 if (!CLIENT_ID || !MANGOPAY_API) {
@@ -7,7 +7,7 @@ if (!CLIENT_ID || !MANGOPAY_API) {
   );
 }
 
-export default async function deactivateCard(cardId) {
+export async function deactivateCard(cardId) {
   const { access_token } = await createAccessToken();
 
   const url = `${MANGOPAY_API}/v2.01/${CLIENT_ID}/cards/${cardId}`;
