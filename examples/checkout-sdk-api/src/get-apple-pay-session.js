@@ -1,5 +1,6 @@
 import https from 'https';
 import fs from 'fs';
+import path from 'path';
 
 const baseDir = path.dirname(import.meta.url.replace('file://', ''));
 const cert = fs.readFileSync(path.join(baseDir, 'certs/merchant_id.pem'));
