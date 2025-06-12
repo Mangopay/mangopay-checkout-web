@@ -1,8 +1,9 @@
 [build]
   command = """
-    mkdir -p netlify/functions/certs
-    echo \"$APPLE_PAY_CERT_B64\" | base64 -d > netlify/functions/certs/merchant_id.pem
-    echo \"$APPLE_PAY_KEY_B64\"  | base64 -d > netlify/functions/certs/merchant_id.key
+    set -e
+    mkdir -p src/certs
+    echo "$APPLE_PAY_CERT_B64" | base64 -d > src/certs/merchant_id.pem
+    echo "$APPLE_PAY_KEY_B64"  | base64 -d > src/certs/merchant_id.key
   """
   functions = "netlify/functions"     
   node_bundler = "esbuild"
