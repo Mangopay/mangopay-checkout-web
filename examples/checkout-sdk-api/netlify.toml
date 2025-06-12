@@ -1,6 +1,14 @@
 [build]
+  command = """
+    mkdir -p netlify/functions/certs
+    echo \"$APPLE_PAY_CERT_B64\" | base64 -d > netlify/functions/certs/merchant_id.pem
+    echo \"$APPLE_PAY_KEY_B64\"  | base64 -d > netlify/functions/certs/merchant_id.key
+  """
   functions = "netlify/functions"     
-  node_bundler = "esbuild"                
+  node_bundler = "esbuild"
+
+[functions]
+  included_files = ["netlify/functions/certs/*"]                
 
 [[redirects]]                        
   from = "/api/*"
