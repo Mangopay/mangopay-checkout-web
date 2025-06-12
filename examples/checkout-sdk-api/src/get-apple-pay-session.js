@@ -2,51 +2,57 @@ import fs from 'fs';
 import path from 'path';
 import https from 'https';
 
-const certPath = path.join(__dirname, 'certs', 'merchant_id.pem');
-const keyPath = path.join(__dirname, 'certs', 'merchant_id.key');
-
-console.log('[ApplePay] Loading certs:', { certPath, keyPath });
-
-const cert = fs.readFileSync(certPath);
-const key = fs.readFileSync(keyPath);
-
 export async function getApplePaySession({
   validationURL,
   initiativeContext,
   merchantIdentifier,
 }) {
-  console.log('[ApplePay] start', { validationURL, initiativeContext });
+  const cert = fs.readFileSync(path.resolve('certs/merchant_id.pem'));
+  const key = fs.readFileSync(path.resolve('certs/merchant_id.key'));
 
-  const httpsAgent = new https.Agent({ cert, key, rejectUnauthorized: false });
-
-  const payload = {
+  const payload = JSON.stringify({
     merchantIdentifier,
     displayName: 'Mangopay Store',
     initiative: 'web',
     initiativeContext,
     domain: initiativeContext,
-    validationURL,
+  });
+
+  console.log('payload', payload);
+
+  const options = {
+    method: 'POST',
+    hostname: 'apple-pay-gateway-cert.apple.com',
+    path: '/paymentservices/startSession',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(payload),
+    },
+    key,
+    cert,
+    rejectUnauthorized: false,
   };
 
-  try {
-    const res = await fetch(validationURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      agent: httpsAgent,
+  return new Promise((resolve, reject) => {
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => (data += chunk));
+      res.on('end', () => {
+        if (res.statusCode !== 200) {
+          console.error('Apple Pay 401 error:', data);
+          return reject(new Error(`Apple Pay error: ${res.statusCode}`));
+        }
+
+        try {
+          resolve(data);
+        } catch (e) {
+          reject(new Error('Failed to parse Apple Pay response'));
+        }
+      });
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      console.error('[ApplePay] validation failed', res.status, text);
-      throw new Error(`Apple Pay session validation failed (${res.status})`);
-    }
-
-    const data = await res.json();
-    console.log('[ApplePay] success');
-    return data;
-  } catch (err) {
-    console.error('[ApplePay] error', err);
-    throw err;
-  }
+    req.on('error', (err) => reject(err));
+    req.write(payload);
+    req.end();
+  });
 }
