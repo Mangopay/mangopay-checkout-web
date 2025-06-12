@@ -17,8 +17,8 @@ import { confirmRecurringCIT } from '../../src/confirm-recurring-cit.js';
 const app = Fastify({ logger: false });
 
 app.register(fastifyCors, {
-  origin: true,
-  credentials: true,
+  origin: '*',
+  credentials: false,
   allowedHeaders: [
     'Authorization',
     'Origin',
