@@ -1,19 +1,22 @@
-import fs from 'fs';
-import path from 'path';
 import https from 'https';
 
-export async function getApplePaySession(params) {
-  const { validationURL, initiativeContext, merchantIdentifier } = params;
+export async function getApplePaySession({
+  validationURL,
+  initiativeContext,
+  merchantIdentifier,
+}) {
+  const certB64 = process.env.APPLE_PAY_CERT;
+  const keyB64 = process.env.APPLE_PAY_KEY;
 
-  const certPath =
-    process.env.APPLE_PAY_CERT_PATH ||
-    path.join(__dirname, '..', '.certs', 'merchant_id-sdk-unit-tests.pem');
-  const keyPath =
-    process.env.APPLE_PAY_KEY_PATH ||
-    path.join(__dirname, '..', '.certs', 'merchant_id-sdk-unit-tests.key');
+  if (!certB64 || !keyB64) {
+    throw new Error(
+      'Missing Apple Pay certificate or key. ' +
+        'Add APPLE_PAY_CERT / APPLE_PAY_KEY env vars in Netlify.'
+    );
+  }
 
-  const cert = fs.readFileSync(certPath);
-  const key = fs.readFileSync(keyPath);
+  const cert = Buffer.from(certB64, 'base64');
+  const key = Buffer.from(keyB64, 'base64');
 
   const httpsAgent = new https.Agent({
     rejectUnauthorized: false,
@@ -44,7 +47,5 @@ export async function getApplePaySession(params) {
     );
   }
 
-  const data = await response.json();
-  console.log('Apple Pay session validated:', data);
-  return data;
+  return response.json();
 }
