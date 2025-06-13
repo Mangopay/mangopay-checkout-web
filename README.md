@@ -37,6 +37,21 @@ Check out the [deployed demo](https://checkout-demo-mangopay.netlify.app) to see
 
 <br/>
 
+# 📦 Examples
+
+The `examples/checkout-sdk-api` folder contains a working example of a backend API that supports all payment operations required to integrate the Mangopay Checkout Web SDK. It serves as a reference implementation for:
+
+- Registering and processing payments
+- Handling 3D Secure (SCA) flows
+- Managing PayIn, Card, Apple Pay, Google Pay, and other payment methods
+- Supporting the full lifecycle of payment operations used by the SDK
+
+🔗 **Check out the complete example in [`examples/checkout-sdk-api`](./examples/checkout-sdk-api)**
+
+Use this as a starting point or inspiration for building your own backend that works seamlessly with the Mangopay Checkout Web SDK.
+
+<br/>
+
 # 📚 Documentation
 
 - [Documentation](https://mangopay.com/docs)
