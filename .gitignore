@@ -26,3 +26,4 @@ yarn-error.log*
 .idea
 # Local Netlify folder
 .netlify
+examples/checkout-sdk-api/src/certs/*

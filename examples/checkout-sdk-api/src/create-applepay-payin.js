@@ -14,7 +14,7 @@ export async function createApplePayPayIn(paymentData) {
   const { access_token } = await createAccessToken();
 
   const payload = {
-    Tag: 'Created using the SAM Fastify app',
+    Tag: 'Created using netlify functions app',
     AuthorId: USER_ID,
     DebitedFunds: { Currency: 'EUR', Amount: 2000 },
     Fees: { Currency: 'EUR', Amount: 0 },

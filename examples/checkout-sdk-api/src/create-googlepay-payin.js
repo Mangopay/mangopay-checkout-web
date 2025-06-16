@@ -17,7 +17,7 @@ export async function createGooglePayPayIn(paymentData, secureModeReturnURL) {
   const { access_token } = await createAccessToken();
 
   const payload = {
-    Tag: 'Created using the SAM Fastify app',
+    Tag: 'Created using netlify functions app',
     AuthorId: USER_ID,
     DebitedFunds: { Currency: 'EUR', Amount: 1500 },
     Fees: { Currency: 'EUR', Amount: 0 },

@@ -32,58 +32,95 @@ app.register(fastifyCors, {
 
 app.register(
   async (api) => {
-    api.get('/', (_, reply) =>
-      reply.send("Backend for Mangopay's Checkout example.")
-    );
+    api.get('/', async (_, reply) => {
+      try {
+        reply.send("Backend for Mangopay's Checkout example.");
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
+    });
 
     api.post('/create-card-registration', async (req, reply) => {
-      const { CardType } = req.body;
-      reply.send(await createCardRegistration(CardType));
+      try {
+        const { CardType } = req.body;
+        reply.send(await createCardRegistration(CardType));
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.post('/create-card-payment', async (req, reply) => {
-      const {
-        cardId,
-        SecureModeReturnURL,
-        PreferredCardNetwork,
-        ProfilingAttemptReference,
-      } = req.body;
-      reply.send(
-        await createCardPayIn(
+      try {
+        const {
           cardId,
           SecureModeReturnURL,
           PreferredCardNetwork,
-          ProfilingAttemptReference
-        )
-      );
+          ProfilingAttemptReference,
+        } = req.body;
+        reply.send(
+          await createCardPayIn(
+            cardId,
+            SecureModeReturnURL,
+            PreferredCardNetwork,
+            ProfilingAttemptReference
+          )
+        );
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.post('/create-paypal-payment', async (req, reply) => {
-      reply.send(await createPayPalPayIn(req.body.SecureModeReturnURL));
+      try {
+        const result = await createPayPalPayin(req.body?.SecureModeReturnURL);
+        reply.send(result);
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.post('/create-googlepay-payment', async (req, reply) => {
-      const raw = req.body;
-      const paymentData = raw.PaymentData ?? raw.paymentData?.PaymentData;
-      reply.send(
-        await createGooglePayPayIn(paymentData, raw.SecureModeReturnURL)
-      );
+      try {
+        const raw = req.body;
+        const paymentData = raw.PaymentData ?? raw.paymentData?.PaymentData;
+        reply.send(
+          await createGooglePayPayIn(paymentData, raw.SecureModeReturnURL)
+        );
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.post('/get-apple-pay-session', async (req, reply) => {
-      reply.send(await getApplePaySession(req.body));
+      try {
+        reply.send(await getApplePaySession(req.body));
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.post('/create-applepay-payment', async (req, reply) => {
-      reply.send(await createApplePayPayIn(req.body.PaymentData));
+      try {
+        reply.send(await createApplePayPayIn(req.body.PaymentData));
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.get('/saved-cards', async (_, reply) => {
-      reply.send(await getSavedCards());
+      try {
+        reply.send(await getSavedCards());
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.put('/deactivate-card', async (req, reply) => {
-      reply.send(await deactivateCard(req.body.cardId));
+      try {
+        reply.send(await deactivateCard(req.body.cardId));
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
     });
 
     api.post('/create-payins-card-web', async (req, reply) => {
@@ -103,9 +140,13 @@ app.register(
       }
     });
 
-    api.setNotFoundHandler((_, reply) =>
-      reply.code(404).send({ error: 'Not found' })
-    );
+    api.setNotFoundHandler(async (_, reply) => {
+      try {
+        reply.code(404).send({ error: 'Not found' });
+      } catch (err) {
+        reply.code(500).send({ error: true, message: err.message });
+      }
+    });
   },
   { prefix: '/api' }
 );
