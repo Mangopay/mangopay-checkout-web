@@ -1,5 +1,4 @@
 import { createAccessToken } from './create-access-token';
-import { SECURE_MODE_RETURN_URL } from './consts';
 
 const { CLIENT_ID, USER_ID, WALLET_ID, MANGOPAY_API } = process.env;
 if (!CLIENT_ID || !USER_ID || !WALLET_ID || !MANGOPAY_API) {
@@ -16,7 +15,7 @@ export async function createPayinsCardWeb(debitedFunds) {
     DebitedFunds: debitedFunds,
     Fees: { Currency: 'EUR', Amount: 0 },
     CreditedWalletId: WALLET_ID,
-    ReturnURL: SECURE_MODE_RETURN_URL,
+    ReturnURL: 'https://docs.mangopay.com/',
     CardType: 'CB_VISA_MASTERCARD',
     SecureMode: 'DEFAULT',
     Culture: 'EN',
