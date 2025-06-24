@@ -1,4 +1,4 @@
-const { REACT_APP_BACKEND_API } = process.env;
+const { REACT_APP_BACKEND_API, REACT_APP_SECURE_MODE_RETURN_URL } = process.env;
 
 export const createCardDirectPayIn = async (data) => {
   try {
@@ -9,6 +9,7 @@ export const createCardDirectPayIn = async (data) => {
       body: JSON.stringify({
         cardId: CardId,
         ProfilingAttemptReference,
+        SecureModeReturnURL: REACT_APP_SECURE_MODE_RETURN_URL,
         currency: Currency,
         amount: '2000',
         SaveCard,

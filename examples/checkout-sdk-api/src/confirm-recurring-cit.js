@@ -18,11 +18,23 @@ export async function confirmRecurringCIT() {
     Shipping: ADDRESS,
     RecurringPayinRegistrationId:
       'recpayinreg_wt_df6d0a29-e117-4b77-a03c-220b30d6ccde',
-    LineItems: LINE_ITEMS.map((item) => ({
-      ...item,
-      Category: 'PHYSICAL_GOODS',
-    })),
-    DebitedFunds: { Currency: 'EUR', Amount: 2000 },
+    LineItems: [
+      {
+        Name: 'Running shoes',
+        Quantity: 20,
+        UnitAmount: 400,
+        TaxAmount: 100,
+        Description: 'ID of Seller 1',
+      },
+      {
+        Name: 'Walking shoes',
+        Quantity: 10,
+        UnitAmount: 900,
+        TaxAmount: 100,
+        Description: 'ID of Seller 2',
+      },
+    ],
+    DebitedFunds: { Currency: 'EUR', Amount: 20000 },
     Fees: { Currency: 'EUR', Amount: 0 },
     StatementDescriptor: 'MGP Rec',
   };
