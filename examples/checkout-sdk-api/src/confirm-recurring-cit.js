@@ -21,20 +21,25 @@ export async function confirmRecurringCIT() {
     LineItems: [
       {
         Name: 'Running shoes',
-        Quantity: 20,
-        UnitAmount: 400,
-        TaxAmount: 100,
+        Quantity: 1,
+        UnitAmount: 4000,
+        TaxAmount: 1000,
         Description: 'ID of Seller 1',
+        Category: 'PHYSICAL_GOODS',
       },
       {
         Name: 'Walking shoes',
-        Quantity: 10,
-        UnitAmount: 900,
-        TaxAmount: 100,
+        Quantity: 1,
+        UnitAmount: 4000,
+        TaxAmount: 1000,
         Description: 'ID of Seller 2',
+        Category: 'PHYSICAL_GOODS',
       },
     ],
-    DebitedFunds: { Currency: 'EUR', Amount: 20000 },
+    DebitedFunds: {
+      Currency: 'EUR',
+      Amount: 2000,
+    },
     Fees: { Currency: 'EUR', Amount: 0 },
     StatementDescriptor: 'MGP Rec',
   };
