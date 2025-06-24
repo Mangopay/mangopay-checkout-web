@@ -38,7 +38,7 @@ export async function confirmRecurringCIT() {
     ],
     DebitedFunds: {
       Currency: 'EUR',
-      Amount: 2000,
+      Amount: 10000,
     },
     Fees: { Currency: 'EUR', Amount: 0 },
     StatementDescriptor: 'MGP Rec',
