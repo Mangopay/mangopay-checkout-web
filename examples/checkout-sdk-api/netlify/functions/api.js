@@ -134,7 +134,8 @@ app.register(
 
     api.post('/paypal/confirm-recurring-cit', async (_, reply) => {
       try {
-        reply.send({ cit: await confirmRecurringCIT() });
+        const res = await confirmRecurringCIT();
+        reply.send(res);
       } catch (err) {
         reply.code(500).send({ error: true, message: err.message });
       }
