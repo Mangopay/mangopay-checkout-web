@@ -11,13 +11,13 @@ import { createApplePayPayIn } from '../../src/create-applepay-payin.js';
 import { getSavedCards } from '../../src/get-saved-cards.js';
 import { deactivateCard } from '../../src/deactivate-card.js';
 import { createPayinsCardWeb } from '../../src/create-payins-card-web.js';
-import { createRecurringRegistration } from '../../src/create-recurring-registration.js';
 import { confirmRecurringCIT } from '../../src/confirm-recurring-cit.js';
 
 const app = Fastify({ logger: false });
 
 app.register(fastifyCors, {
   origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   credentials: false,
   allowedHeaders: [
     'Authorization',
