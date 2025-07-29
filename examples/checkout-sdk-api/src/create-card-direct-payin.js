@@ -26,7 +26,6 @@ export async function createCardPayIn(
     CardId: cardId,
     DebitedFunds: { Currency: 'EUR', Amount: 1500 },
     Fees: { Currency: 'EUR', Amount: 0 },
-    SecureMode: 'FORCE',
     SecureModeReturnURL: secureModeReturnURL || DefaultSecureModeReturnURL,
     StatementDescriptor: 'MANGOPAY',
     Billing: ADDRESS,
