@@ -27,13 +27,31 @@ const copyToClipboard = async (text) => {
 };
 
 const PaymentExamples = () => {
-  const [showExamples, setShowExamples] = useState(false);
+  const [showExamples, setShowExamples] = useState(true);
 
   return (
     <div className="payment-examples">
-      <button className={`button ${showExamples ? 'active' : ''}`} onClick={() => setShowExamples(!showExamples)}>
-        {showExamples ? 'Hide' : 'Show'} Example Payment Methods
-      </button>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        marginBottom: showExamples ? '12px' : '0'
+      }}>
+        <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#a3bffa' }}>
+          Test Payment Data
+        </h3>
+        <button 
+          className="copy-btn" 
+          onClick={() => setShowExamples(!showExamples)}
+          style={{ 
+            fontSize: '12px',
+            padding: '4px 8px',
+            background: showExamples ? '#434190' : '#5a67d8'
+          }}
+        >
+          {showExamples ? 'Hide' : 'Show'}
+        </button>
+      </div>
 
       {showExamples && (
         <div className="examples-content">

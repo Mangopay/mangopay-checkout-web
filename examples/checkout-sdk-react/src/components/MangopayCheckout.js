@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MangopayCheckout as MangopayCheckoutComponent } from '@mangopay/checkout-sdk-react';
@@ -10,20 +10,24 @@ import { Toast } from '../utils/toast';
 
 const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
 
-const MangopayCheckout = ({ savedCards }) => {
+const MangopayCheckout = ({ savedCards, respectPaymentMethodsOrder }) => {
   const navigate = useNavigate();
   const sdkRef = useRef(null);
-
+  const [sdkKey, setSdkKey] = useState(0);
   const checkoutOptions = useMemo(
     () => ({
       clientId: REACT_APP_CLIENT_ID,
       profilingMerchantId: REACT_APP_PROFILING_MERCHANT_ID,
       environment: 'SANDBOX',
+      respectPaymentMethodsOrder,
       amount: {
         value: '2000',
         currency: 'EUR',
       },
       paymentMethods: [
+        paypalOptions,
+        applePayOptions,
+        googlePayOptions,
         {
           type: 'card',
           options: {
@@ -31,12 +35,9 @@ const MangopayCheckout = ({ savedCards }) => {
             savedCards,
           },
         },
-        paypalOptions,
-        applePayOptions,
-        googlePayOptions,
       ],
     }),
-    [savedCards]
+    [savedCards, respectPaymentMethodsOrder]
   );
 
   const onTokenizationComplete = async (result) => {
@@ -65,8 +66,12 @@ const MangopayCheckout = ({ savedCards }) => {
     console.log('onCancel');
   };
 
+  useEffect(() => {
+    setSdkKey(prev => prev + 1);
+  }, [respectPaymentMethodsOrder]);
   return (
     <MangopayCheckoutComponent
+      key={sdkKey}
       ref={sdkRef}
       options={checkoutOptions}
       onError={onError}
