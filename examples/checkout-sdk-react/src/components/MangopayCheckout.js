@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MangopayCheckout as MangopayCheckoutComponent } from '@mangopay/checkout-sdk-react';
@@ -13,7 +13,6 @@ const { REACT_APP_PROFILING_MERCHANT_ID, REACT_APP_CLIENT_ID } = process.env;
 const MangopayCheckout = ({ savedCards, respectPaymentMethodsOrder }) => {
   const navigate = useNavigate();
   const sdkRef = useRef(null);
-  const [sdkKey, setSdkKey] = useState(0);
   const checkoutOptions = useMemo(
     () => ({
       clientId: REACT_APP_CLIENT_ID,
@@ -67,11 +66,14 @@ const MangopayCheckout = ({ savedCards, respectPaymentMethodsOrder }) => {
   };
 
   useEffect(() => {
-    setSdkKey(prev => prev + 1);
-  }, [respectPaymentMethodsOrder]);
+    sdkRef.current?.updateOptions({
+      ...checkoutOptions,
+      respectPaymentMethodsOrder,
+    });
+  }, [respectPaymentMethodsOrder, checkoutOptions]);
+
   return (
     <MangopayCheckoutComponent
-      key={sdkKey}
       ref={sdkRef}
       options={checkoutOptions}
       onError={onError}
