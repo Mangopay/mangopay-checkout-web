@@ -1,5 +1,12 @@
 # 🔀 &nbsp; Changelog
 
+## 1.4.2 (2025-09-10)
+
+### Fixed
+
+- \*\*Optimized performance by reducing bundle size.
+- \*\*Fixed a bug where the SDK could be unmounted with an open 3DS flow — the 3DS component is now properly removed.
+
 ## 1.2.1 (2024-11-29)
 
 ### New features
