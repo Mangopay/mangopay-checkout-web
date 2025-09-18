@@ -10,7 +10,7 @@ export const applePayOptions = {
       countryCode: 'IE',
       currencyCode: 'EUR',
       merchantCapabilities: ['supports3DS'],
-      supportedNetworks: ['visa', 'masterCard'],
+      supportedNetworks: ['VISA', 'MASTERCARD'],
       total: {
         label: 'Demo (Card is not charged)',
         type: 'final',
