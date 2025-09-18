@@ -7,7 +7,7 @@ export const applePayOptions = {
   type: 'apple_pay',
   options: {
     paymentRequest: {
-      countryCode: 'IE',
+      countryCode: 'FR',
       currencyCode: 'EUR',
       merchantCapabilities: ['supports3DS'],
       supportedNetworks: ['VISA', 'MASTERCARD'],
